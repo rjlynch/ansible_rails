@@ -1,0 +1,26 @@
+---
+- import_role:
+    name: nginx
+
+- name: Install git
+  apt:
+    name: git
+    state: installed
+
+- import_role:
+    name: geerlingguy.redis
+
+- name: Install nodejs
+  apt:
+    name: nodejs
+    state: latest
+
+- import_role:
+    name: spitfast.rbenv
+
+- name: Make apps directory
+  file:
+    path: /var/www
+    state: directory
+    owner: "{{ rbenv_user }}"
+

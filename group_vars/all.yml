@@ -1,0 +1,12 @@
+---
+deploy_username: deploy
+deploy_password: testtest
+root_password: testtest
+logwatch_email: rjlynch86@googlemail.com
+
+sites:
+  - app_name: bodybuilding
+    url: gymtrackerapp.test
+    port: 3000
+    db: bodybuilding_production
+    password: testtest

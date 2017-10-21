@@ -1,0 +1,62 @@
+---
+- name: Add nginx signing key
+  apt_key:
+    url: http://nginx.org/keys/nginx_signing.key
+    state: present
+
+- name: Add sources deb url for nginx
+  lineinfile:
+    dest: /etc/apt/sources.list
+    line: "deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx"
+
+- name: Add sources deb-src url for nginx
+  lineinfile:
+    dest: /etc/apt/sources.list
+    line: "deb-src http://nginx.org/packages/mainline/ubuntu/ trusty nginx"
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install nginx
+  apt:
+    pkg: nginx
+    state: latest
+
+- name: Starting nginx
+  service:
+    name: nginx
+    state: started
+
+- name: Create sites-available
+  file:
+    path: "/etc/nginx/sites-available"
+    state: directory
+
+- name: Create sites-enabled
+  file:
+    path: "/etc/nginx/sites-enabled"
+    state: directory
+
+- name: Copy nginx.conf
+  copy:
+    src: files/nginx.conf
+    dest: "/etc/nginx/nginx.conf"
+  notify:
+    - Restart nginx
+
+- name: Copy app nginx.confs
+  template:
+    src: templates/nginx.conf
+    dest: "/etc/nginx/sites-available/{{ item.app_name }}.conf"
+  with_items: "{{ sites }}"
+
+- name: Enable sites
+  file:
+    src: "/etc/nginx/sites-available/{{ item.app_name }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ item.app_name }}.conf"
+    state: link
+  with_items: "{{ sites }}"
+  notify:
+    - Restart nginx
+

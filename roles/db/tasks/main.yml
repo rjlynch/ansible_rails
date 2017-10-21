@@ -1,0 +1,55 @@
+---
+- name: Install required packages
+  apt:
+    state: installed
+    pkg: "{{ item }}"
+  with_items: "{{ required_packages }}"
+
+- name: Copy pg_hba.conf
+  copy:
+    src: pg_hba.conf
+    dest: /etc/postgresql/9.5/main/pg_hba.conf
+  notify:
+    - Restart postgres
+
+- name: Ensure postgres is running
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Ensure databases are created
+  become_user: postgres
+  postgresql_db:
+    name: "{{ item.db }}"
+    state: present
+  with_items: "{{ sites }}"
+
+- name: Enusre user has access to database
+  become_user: postgres
+  postgresql_user:
+    db: "{{ item.db }}"
+    name: "{{ item.app_name }}"
+    password: "{{ item.password }}"
+    priv: ALL
+    state: present
+  with_items: "{{ sites }}"
+
+- name: Ensure user doesnt have unnecessary privileges
+  become_user: postgres
+  postgresql_user:
+    name: "{{ item.app_name }}"
+    role_attr_flags: "NOSUPERUSER,NOCREATEDB"
+    state: present
+  with_items: "{{ sites }}"
+
+- name: Add passwords to profile
+  lineinfile:
+    path: "/home/{{ deploy_username }}/.bashrc"
+    line: "export {{ item.app_name|upper }}_DATABASE_PASSWORD='{{ item.password }}'"
+    insertbefore: BOF
+    state: present
+    create: yes
+  with_items: "{{ sites }}"
+
+

@@ -1,0 +1,8 @@
+---
+required_packages:
+  - postgresql
+  - postgresql-contrib
+  - libpq-dev
+  - python3-psycopg2
+databases:
+  - { name: 'bodybuilding', db: 'bodybuilding_production', password: 'testtest' }

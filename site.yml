@@ -1,0 +1,24 @@
+---
+- name: Set up deploy user
+  hosts: all
+  remote_user: root
+  roles:
+    - common
+
+- name: Set up DB
+  hosts: all
+  remote_user: "{{ deploy_username }}"
+  become: true
+  roles:
+    - db
+  tags:
+    - db
+
+- name: Set up Web
+  hosts: all
+  remote_user: "{{ deploy_username }}"
+  become: true
+  roles:
+    - web
+  tags:
+    - web
