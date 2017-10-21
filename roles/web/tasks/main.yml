@@ -22,5 +22,5 @@
   file:
     path: /var/www
     state: directory
-    owner: "{{ rbenv_user }}"
+    owner: "{{ deploy_username }}"
 
