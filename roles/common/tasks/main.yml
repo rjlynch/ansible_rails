@@ -4,6 +4,12 @@
     name: root
     password: "{{ root_password }}"
 
+- name: Add authorised keys for root user
+  authorized_key:
+    user: root
+    key: "{{ lookup('file', item) }}"
+  with_items: "{{ ubuntu_common_deploy_public_keys }}"
+
 - name: Add deploy user
   user:
     name: "{{ deploy_username }}"
@@ -106,10 +112,10 @@
     state: present
   notify: Restart ssh
 
-- name: Disallow root SSH access
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: "^PermitRootLogin"
-    line: "PermitRootLogin no"
-    state: present
-  notify: Restart ssh
+  #- name: Disallow root SSH access
+  #  lineinfile:
+  #    dest: /etc/ssh/sshd_config
+  #    regexp: "^PermitRootLogin"
+  #    line: "PermitRootLogin no"
+  #    state: present
+  #  notify: Restart ssh

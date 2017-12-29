@@ -1,4 +1,7 @@
 ---
+ubuntu_common_root_public_keys:
+  - ~/.ssh/id_rsa.pub
+
 ubuntu_common_deploy_public_keys:
   - ~/.ssh/id_rsa.pub
 
