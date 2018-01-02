@@ -8,7 +8,7 @@
     state: installed
 
 - import_role:
-    name: geerlingguy.redis
+    name: rbenv-role
 
 - name: Install nodejs
   apt:

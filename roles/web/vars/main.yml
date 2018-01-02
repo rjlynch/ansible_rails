@@ -4,6 +4,7 @@ rbenv_repo_path: https://github.com/rbenv/rbenv.git
 rbenv_ruby_build_repo_path: https://github.com/sstephenson/ruby-build.git
 rbenv_user: "{{ deploy_username }}"
 rbenv_root_path: "/home/{{ deploy_username }}/.rbenv"
-rbenv_ruby_version: 2.4.0
+rbenv_ruby_versions: "{{ ruby_versions }}"
+rbenv_global_ruby_version: "{{ global_ruby_version }}"
 rbenv_gems:
   - bundler
