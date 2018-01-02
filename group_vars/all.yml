@@ -13,4 +13,3 @@ sites:
     port: 3000
     db: business_ideas_production
     password: "{{ business_ideas.password }}"
-    ruby_version: 2.3.0
