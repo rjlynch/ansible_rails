@@ -4,6 +4,8 @@
   remote_user: root
   roles:
     - common
+  vars_files:
+    - "private_vars/main.yml"
 
 - name: Set up DB
   hosts: all
@@ -13,6 +15,8 @@
     - db
   tags:
     - db
+  vars_files:
+    - "private_vars/main.yml"
 
 - name: Set up Web
   hosts: all
@@ -22,3 +26,5 @@
     - web
   tags:
     - web
+  vars_files:
+    - "private_vars/main.yml"
