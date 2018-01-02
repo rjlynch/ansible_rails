@@ -1,12 +1,20 @@
 ---
 deploy_username: deploy
-deploy_password: testtest
-root_password: testtest
+deploy_password: "{{ deploy_password }}"
+root_password: "{{ root_password }}"
 logwatch_email: rjlynch86@googlemail.com
+global_ruby_version: 2.3.0
+ruby_versions:
+  - 2.3.0
+vars_files:
+  - /private_vars/main.yml
 
 sites:
-  - app_name: bodybuilding
-    url: gymtrackerapp.test
+  - app_name: business_ideas
+    url: businessideas.directory
     port: 3000
-    db: bodybuilding_production
-    password: testtest
+    db: business_ideas_production
+    password: "{{ business_ideas.password }}"
+    ruby_version: 2.3.0
+    vars_files:
+      - /private_vars/main.yml
