@@ -51,6 +51,12 @@
     dest: "/etc/nginx/sites-available/{{ item.app_name }}.conf"
   with_items: "{{ sites }}"
 
+- name: Remove old sites-enabled links
+  file:
+    path: "/etc/nginx/sites-enabled/{{ item.app_name }}.conf"
+    state: absent
+  with_items: "{{ sites }}"
+
 - name: Enable sites
   file:
     src: "/etc/nginx/sites-available/{{ item.app_name }}.conf"
