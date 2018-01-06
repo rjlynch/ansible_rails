@@ -3,9 +3,10 @@ deploy_username: deploy
 deploy_password: "{{ server.deploy_password }}"
 root_password: "{{ server.root_password }}"
 logwatch_email: rjlynch86@googlemail.com
-global_ruby_version: 2.3.0
+global_ruby_version: 2.4.2
 ruby_versions:
   - 2.3.0
+  - 2.4.2
 
 sites:
   - app_name: business_ideas
@@ -13,3 +14,9 @@ sites:
     port: 3000
     db: business_ideas_production
     password: "{{ business_ideas.password }}"
+
+  - app_name: crypto_markets_api
+    url: rjldev.test
+    port: 3001
+    db: crypto_markets_api_production
+    password: "{{ crypto_markets_api.password }}"
