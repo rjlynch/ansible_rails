@@ -46,7 +46,7 @@
 - name: Add passwords to profile
   lineinfile:
     path: "/home/{{ deploy_username }}/.bashrc"
-    line: "export {{ item.app_name|upper }}_DATABASE_PASSWORD='{{ item.password }}'"
+    line: "export {{ item.db|upper }}_DATABASE_PASSWORD='{{ item.password }}'"
     insertbefore: BOF
     state: present
     create: yes
