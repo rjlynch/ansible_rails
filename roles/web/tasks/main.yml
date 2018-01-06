@@ -15,9 +15,6 @@
     name: nodejs
     state: latest
 
-- import_role:
-    name: spitfast.rbenv
-
 - name: Make apps directory
   file:
     path: /var/www
