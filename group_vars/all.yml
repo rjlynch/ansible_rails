@@ -9,7 +9,7 @@ ruby_versions:
 
 sites:
   - app_name: business_ideas
-    url: businessideas.directory
+    url: businessideas.test
     port: 3000
     db: business_ideas_production
     password: "{{ business_ideas.password }}"
