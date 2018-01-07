@@ -10,13 +10,13 @@ ruby_versions:
 
 sites:
   - app_name: business_ideas
-    url: businessideas.test
+    url: businessideas.directory
     port: 3000
     db: business_ideas_production
     password: "{{ business_ideas.password }}"
 
   - app_name: crypto_markets_api
-    url: rjldev.test
+    url: rjldev.com
     port: 3001
     db: crypto_markets_api_production
     password: "{{ crypto_markets_api.password }}"
