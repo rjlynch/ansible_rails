@@ -2,3 +2,5 @@
 - src: "https://github.com/rjlynch/ansible-role-rbenv"
   version: master
   name: rbenv-role
+
+- src: "geerlingguy.redis"
